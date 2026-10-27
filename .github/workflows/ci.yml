@@ -1,4 +1,4 @@
-name: Python CI Pipeline
+name: Python CI and Docker Build
 
 on:
   push:
@@ -13,8 +13,8 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    name: Run Python Tests
+  test-and-build:
+    name: Test Application and Build Docker Image
     runs-on: ubuntu-latest
 
     steps:
@@ -26,5 +26,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run Tests
+      - name: Run Python Tests
         run: python -m unittest -v
+
+      - name: Build Docker Image
+        run: docker build -t cicd-practice:latest .
